@@ -33,6 +33,19 @@ addButton.addEventListener("click", () => {
         return;
     }
 
+        // 今日の日付を取得
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 入力された更新日を取得
+    const inputDate = new Date(update);
+
+    // 過去の日付かチェック
+    if (inputDate < today) {
+        alert("過去の日付です！");
+     return;
+    }
+
     // サービス情報を作成
     const service = {
         name: serviceName,
@@ -63,11 +76,32 @@ function displayServices() {
     serviceList.innerHTML = "";
 
     // 登録されたサービスを順番に表示
-    services.forEach(function(service) {
+    services.forEach(function(service, index) {
 
         const li = document.createElement("li");
 
-        li.textContent =  service.name + " ：更新日 " + service.updateDate;
+        li.textContent =
+            service.name + " ：更新日 " + service.updateDate;
+
+        // 削除ボタンを作成
+        const deleteButton = document.createElement("button");
+
+        deleteButton.textContent = "削除";
+
+        // 削除ボタンの処理
+        deleteButton.addEventListener("click", function() {
+
+            // 配列から該当するサービスを削除
+            services.splice(index, 1);
+
+            // 2つのリストを更新
+            displayServices();
+            displayReminders();
+
+        });
+
+        // リストに削除ボタンを追加
+        li.appendChild(deleteButton);
 
         serviceList.appendChild(li);
 
@@ -125,4 +159,66 @@ reminders.forEach(function(service) {
     reminderList.appendChild(li);
 
 });
+}
+
+
+// =================================
+// 6. ページ読み込み時のアニメーション
+// =================================
+
+window.addEventListener("load", function() {
+
+    document.body.animate(
+        [
+            { opacity: 0 },
+            { opacity: 1 }
+        ],
+        {
+            duration: 1500,
+            easing: "ease",
+            fill: "forwards"
+        }
+    );
+
+});
+
+
+// =================================
+// 7. 更新日を過ぎたサービスの表示
+// =================================
+
+function displayExpired() {
+
+    // リストを一度空にする
+    expiredList.innerHTML = "";
+
+    // 今日の日付を取得
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 更新日を過ぎたサービスを抽出
+    const expiredServices = services.filter(function(service) {
+
+        const [year, month, day] =
+            service.updateDate.split("-").map(Number);
+
+        const updateDate = new Date(year, month - 1, day);
+
+        // 今日より前ならtrue
+        return updateDate < today;
+
+    });
+
+    // 抽出したサービスを表示
+    expiredServices.forEach(function(service) {
+
+        const li = document.createElement("li");
+
+        li.textContent =
+            service.name + " ：更新期限切れ";
+
+        expiredList.appendChild(li);
+
+    });
+
 }
