@@ -1,0 +1,53 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+input,
+button {
+    padding: 5px;
+    margin: 5px;
+}
+
+/* 登録サービス一覧 */
+#service-list {
+    list-style: none;
+    padding: 0;
+}
+
+#service-list li {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* 更新日が近いサービス */
+.near-expiry {
+    border: 3px solid #ff9800;
+    background-color: #fff3e0;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.4);
+}
+
+.near-expiry::before {
+    content: "⚠ 更新間近 ";
+    color: #ff6f00;
+    font-weight: bold;
+}
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
