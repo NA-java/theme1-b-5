@@ -3,9 +3,6 @@ body {
     margin: 20px;
 }
 
-h1 {
-    color: #333;
-}
 
 input,
 button {
@@ -15,7 +12,6 @@ button {
 
 /* 登録サービス一覧 */
 #service-list {
-    list-style: none;
     padding: 0;
 }
 
@@ -29,16 +25,13 @@ button {
 
 #reminder-list {
     border: 3px solid #ff9800;
-    border-radius: 8px;
-    padding: 10px;
+    padding: 10px 20px;
+    margin: 0;
     background-color: #fff3e0;
+    border-radius: 8px;
+    list-style: none;
 }
 
-.near-expiry::before {
-    content: "⚠ 更新間近 ";
-    color: #ff6f00;
-    font-weight: bold;
-}
 button {
     background-color: #007bff;
     color: white;
@@ -48,6 +41,11 @@ button {
     cursor: pointer;
 }git add app.js
 
+
 button:hover {
     background-color: #0056b3;
 }
+#service-list button {
+    background-color: #dc3545;
+}
+
